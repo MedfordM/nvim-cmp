@@ -50,7 +50,6 @@ docs_view.open = function(self, e, view)
     end
 
     self.entry = e
-    max_width = max_width - border_info.horiz
   end
 
   local initialDocStyle = {
