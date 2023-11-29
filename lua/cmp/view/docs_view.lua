@@ -1,6 +1,6 @@
 local window = require('cmp.utils.window')
 local config = require('cmp.config')
-local core = require('cmp.core')
+local core = require('cmp').core
 
 ---@class cmp.DocsView
 ---@field public window cmp.Window
