@@ -1,5 +1,6 @@
 local window = require('cmp.utils.window')
 local config = require('cmp.config')
+local core = require('cmp.core')
 
 ---@class cmp.DocsView
 ---@field public window cmp.Window
@@ -35,6 +36,7 @@ docs_view.open = function(self, e, view)
     return self:close()
   end
 
+
   local border_info = window.get_border_info({ style = documentation })
   local right_space = vim.o.columns - (view.col + view.width) - 1
   local left_space = view.col - 1
@@ -64,7 +66,7 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'cursor',
-    offset_x = view.width
+    offset_x = core.view._get_entries_view().info().width
   }
   local floatWinId = nil
   local _ = nil
