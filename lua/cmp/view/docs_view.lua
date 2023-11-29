@@ -109,7 +109,7 @@ docs_view.open = function(self, e, view)
     row = view.row,
   }
 
-  vim.api.nvim_win_set_config(self.window.win, adjustedDocStyle)
+  -- vim.api.nvim_win_set_config(self.window.win, adjustedDocStyle)
 
   -- Correct left-col for scrollbar existence.
   if left then
