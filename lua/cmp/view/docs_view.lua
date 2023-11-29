@@ -72,8 +72,8 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'editor',
-    offset_x = row,
-    offset_y = col
+    offset_x = col,
+    offset_y = row * -1
     -- offset_y = (max_height + 3) * -1
   }
   vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
