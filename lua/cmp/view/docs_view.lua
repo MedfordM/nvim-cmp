@@ -67,7 +67,7 @@ docs_view.open = function(self, e, view)
     height = max_height,
   }
 
-  self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
+  self.window.name, self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
   vim.api.nvim_buf_set_option(self.window:get_buffer(), 'modified', false)
 
