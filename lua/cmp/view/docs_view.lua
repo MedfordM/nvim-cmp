@@ -55,6 +55,7 @@ docs_view.open = function(self, e, view)
 
   local pos = api.get_screen_cursor()
   local cursor_before_line = api.get_cursor_before_line()
+  api.get_cursor_before_line()
   -- local delta = vim.fn.strdisplaywidth(cursor_before_line:sub(self.offset))
   local row, col = pos[1], pos[2] - 1
 
@@ -71,10 +72,10 @@ docs_view.open = function(self, e, view)
     scrollbar = true,
     width = max_width,
     height = max_height,
-    relative = 'editor',
-    offset_x = col,
-    offset_y = row * -1
+    relative = 'cursor',
+    anchor_bias = 'above',
     -- offset_y = (max_height + 3) * -1
+    offset_y = -3
   }
   vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
