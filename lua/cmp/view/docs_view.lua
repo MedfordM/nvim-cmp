@@ -39,6 +39,7 @@ docs_view.open = function(self, e, view)
   local right_space = vim.o.columns - (view.col + view.width) - 1
   local left_space = view.col - 1
   local max_width = math.min(documentation.max_width, math.max(left_space, right_space))
+  local max_height = documentation.max_height
   local documents = {}
 
   -- Update buffer content if needed.
@@ -52,6 +53,8 @@ docs_view.open = function(self, e, view)
     max_width = max_width - border_info.horiz
   end
 
+
+  self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', style)
   -- Set buffer as not modified, so it can be removed without errors
   vim.api.nvim_buf_set_option(self.window:get_buffer(), 'modified', false)
 
@@ -90,14 +93,14 @@ docs_view.open = function(self, e, view)
   local style = {
     relative = 'editor',
     style = 'minimal',
-    width = width,
-    height = height,
+    width = max_width,
+    height = max_height,
     row = view.row,
     col = col,
     border = documentation.border,
     zindex = documentation.zindex or 50,
   }
-  self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', style)
+  vim.api.nvim_win_set_config(self.window.win, style)
 
   -- Correct left-col for scrollbar existence.
   if left then
