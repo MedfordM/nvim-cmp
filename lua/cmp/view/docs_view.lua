@@ -1,5 +1,6 @@
 local window = require('cmp.utils.window')
 local config = require('cmp.config')
+local api = require('cmp.utils.api')
 
 ---@class cmp.DocsView
 ---@field public window cmp.Window
@@ -52,6 +53,8 @@ docs_view.open = function(self, e, view)
     self.entry = e
   end
 
+  local r,c = unpack(vim.api.nvim_win_get_cursor(0))
+
   local initialDocStyle = {
     title = 'Docs',
     border = 'rounded',
@@ -64,8 +67,10 @@ docs_view.open = function(self, e, view)
     scrollbar = true,
     width = max_width,
     height = max_height,
-    relative = 'cursor',
-    offset_y = (max_height + 3) * -1
+    relative = 'editor',
+    offset_x = r,
+    offset_y = c,
+    -- offset_y = (max_height + 3) * -1
   }
   vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
