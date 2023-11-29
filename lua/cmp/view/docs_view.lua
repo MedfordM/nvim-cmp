@@ -65,57 +65,11 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'cursor',
-    offset_y = (max_height + 2) * -1
+    offset_y = (max_height + 3) * -1
   }
-  local floatWinId = nil
-  local _ = nil
-  _, floatWinId = vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
+  vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
   vim.api.nvim_buf_set_option(self.window:get_buffer(), 'modified', false)
-
-  -- Calculate window size.
-  -- local width, height = vim.lsp.util._make_floating_popup_size(vim.api.nvim_buf_get_lines(self.window:get_buffer(), 0, -1, false), {
-  --   max_width = max_width - border_info.horiz,
-  --   max_height = documentation.max_height - border_info.vert,
-  -- })
-  -- if width <= 0 or height <= 0 then
-  --   return self:close()
-  -- end
-  --
-  -- -- Calculate window position.
-  -- local right_col = view.col + view.width
-  -- local left_col = view.col - width - border_info.horiz
-  -- local col, left
-  -- if right_space >= width and left_space >= width then
-  --   if right_space < left_space then
-  --     col = left_col
-  --     left = true
-  --   else
-  --     col = right_col
-  --   end
-  -- elseif right_space >= width then
-  --   col = right_col
-  -- elseif left_space >= width then
-  --   col = left_col
-  --   left = true
-  -- else
-  --   return self:close()
-  -- end
-  --
-  -- -- Render window.
-  -- self.window:option('winblend', vim.o.pumblend)
-  -- self.window:option('winhighlight', documentation.winhighlight)
-  -- local adjustedDocStyle = {
-  -- }
-  --
-  -- vim.api.nvim_win_set_config(floatWinId, adjustedDocStyle)
-  -- self.window.update(self)
-  --
-  -- -- Correct left-col for scrollbar existence.
-  -- if left then
-  --   adjustedDocStyle.col = col - self.window:info().scrollbar_offset
-  --   self.window:open(adjustedDocStyle)
-  -- end
 end
 
 ---Close floating window
