@@ -48,7 +48,6 @@ docs_view.open = function(self, e, view)
     if #documents == 0 then
       return self:close()
     end
-
     self.entry = e
   end
 
@@ -104,7 +103,7 @@ docs_view.open = function(self, e, view)
   self.window:option('winblend', vim.o.pumblend)
   self.window:option('winhighlight', documentation.winhighlight)
   local adjustedDocStyle = {
-    relative = 'editor',
+    relative = 'cursor',
     col = col,
     row = view.row
   }
