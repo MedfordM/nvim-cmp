@@ -104,6 +104,7 @@ docs_view.open = function(self, e, view)
   self.window:option('winblend', vim.o.pumblend)
   self.window:option('winhighlight', documentation.winhighlight)
   local adjustedDocStyle = {
+    relative = 'editor',
     col = col,
     row = view.row,
   }
