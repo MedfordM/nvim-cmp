@@ -65,7 +65,7 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'cursor',
-    offset_y = max_height
+    offset_y = -max_height
   }
   local floatWinId = nil
   local _ = nil
