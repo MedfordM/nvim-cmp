@@ -106,15 +106,16 @@ docs_view.open = function(self, e, view)
   self.window:option('winhighlight', documentation.winhighlight)
   local adjustedDocStyle = {
     relative = 'editor',
-    col = 12,
-    row = 9
+    col = col,
+    row = view.row
   }
 
   vim.api.nvim_win_set_config(floatWinId, adjustedDocStyle)
+  self.window.update(self)
 
   -- Correct left-col for scrollbar existence.
   if left then
-    adjustedDocStyle.col = adjustedDocStyle.col - self.window:info().scrollbar_offset
+    adjustedDocStyle.col = col - self.window:info().scrollbar_offset
     self.window:open(adjustedDocStyle)
   end
 end
