@@ -90,22 +90,28 @@ docs_view.open = function(self, e, view)
   -- Render window.
   self.window:option('winblend', vim.o.pumblend)
   self.window:option('winhighlight', documentation.winhighlight)
-  local style = {
+  local docWindowStyle = {
     relative = 'editor',
-    style = 'minimal',
+    border = 'rounded',
+    winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+    zindex = 1001,
+    scrolloff = 0,
+    col_offset = 0,
+    side_padding = 1,
+    scrollbar = true,
+    col = col,
+    row = view.row,
     width = max_width,
     height = max_height,
-    row = view.row,
-    col = col,
-    border = documentation.border,
-    zindex = documentation.zindex or 50,
+    title = 'Docs'
   }
-  vim.api.nvim_win_set_config(self.window.win, style)
+
+  vim.api.nvim_win_set_config(self.window.win, docWindowStyle)
 
   -- Correct left-col for scrollbar existence.
   if left then
-    style.col = style.col - self.window:info().scrollbar_offset
-    self.window:open(style)
+    docWindowStyle.col = docWindowStyle.col - self.window:info().scrollbar_offset
+    self.window:open(docWindowStyle)
   end
 end
 
