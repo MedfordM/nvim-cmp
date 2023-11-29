@@ -53,8 +53,21 @@ docs_view.open = function(self, e, view)
     max_width = max_width - border_info.horiz
   end
 
+  local initialDocStyle = {
+    title = 'Docs',
+    relative = 'editor',
+    border = 'rounded',
+    winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+    zindex = 1001,
+    scrolloff = 0,
+    col_offset = 0,
+    side_padding = 1,
+    scrollbar = true,
+    width = max_width,
+    height = max_height,
+  }
 
-  self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', style)
+  self.window.win = vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
   vim.api.nvim_buf_set_option(self.window:get_buffer(), 'modified', false)
 
@@ -90,28 +103,17 @@ docs_view.open = function(self, e, view)
   -- Render window.
   self.window:option('winblend', vim.o.pumblend)
   self.window:option('winhighlight', documentation.winhighlight)
-  local docWindowStyle = {
-    relative = 'editor',
-    border = 'rounded',
-    winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
-    zindex = 1001,
-    scrolloff = 0,
-    col_offset = 0,
-    side_padding = 1,
-    scrollbar = true,
+  local adjustedDocStyle = {
     col = col,
     row = view.row,
-    width = max_width,
-    height = max_height,
-    title = 'Docs'
   }
 
-  vim.api.nvim_win_set_config(self.window.win, docWindowStyle)
+  vim.api.nvim_win_set_config(self.window.win, adjustedDocStyle)
 
   -- Correct left-col for scrollbar existence.
   if left then
-    docWindowStyle.col = docWindowStyle.col - self.window:info().scrollbar_offset
-    self.window:open(docWindowStyle)
+    adjustedDocStyle.col = adjustedDocStyle.col - self.window:info().scrollbar_offset
+    self.window:open(adjustedDocStyle)
   end
 end
 
