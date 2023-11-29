@@ -106,8 +106,8 @@ docs_view.open = function(self, e, view)
   self.window:option('winhighlight', documentation.winhighlight)
   local adjustedDocStyle = {
     relative = 'editor',
-    col = col,
-    row = view.row,
+    col = 12,
+    row = 9
   }
 
   vim.api.nvim_win_set_config(floatWinId, adjustedDocStyle)
