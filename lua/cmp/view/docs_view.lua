@@ -53,7 +53,11 @@ docs_view.open = function(self, e, view)
     self.entry = e
   end
 
-  local r,c = unpack(vim.api.nvim_win_get_cursor(0))
+  local pos = api.get_screen_cursor()
+  local cursor_before_line = api.get_cursor_before_line()
+  -- local delta = vim.fn.strdisplaywidth(cursor_before_line:sub(self.offset))
+  local row, col = pos[1], pos[2] - 1
+
 
   local initialDocStyle = {
     title = 'Docs',
@@ -68,8 +72,8 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'editor',
-    offset_x = r,
-    offset_y = c,
+    offset_x = row,
+    offset_y = col
     -- offset_y = (max_height + 3) * -1
   }
   vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
