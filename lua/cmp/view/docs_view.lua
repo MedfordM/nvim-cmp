@@ -66,8 +66,9 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
   }
-  local _ = 0
-  vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
+  local floatWinId = nil
+  local _ = nil
+  _, floatWinId = vim.lsp.util.open_floating_preview(documents, 'markdown', initialDocStyle)
   -- Set buffer as not modified, so it can be removed without errors
   vim.api.nvim_buf_set_option(self.window:get_buffer(), 'modified', false)
 
@@ -109,7 +110,7 @@ docs_view.open = function(self, e, view)
     row = view.row,
   }
 
-  -- vim.api.nvim_win_set_config(self.window.win, adjustedDocStyle)
+  vim.api.nvim_win_set_config(floatWinId, adjustedDocStyle)
 
   -- Correct left-col for scrollbar existence.
   if left then
