@@ -1,6 +1,5 @@
 local window = require('cmp.utils.window')
 local config = require('cmp.config')
--- local core = require('cmp').core
 
 ---@class cmp.DocsView
 ---@field public window cmp.Window
@@ -66,7 +65,7 @@ docs_view.open = function(self, e, view)
     width = max_width,
     height = max_height,
     relative = 'cursor',
-    -- offset_x = core.view._get_entries_view().info().width
+    offset_y = -2
   }
   local floatWinId = nil
   local _ = nil
